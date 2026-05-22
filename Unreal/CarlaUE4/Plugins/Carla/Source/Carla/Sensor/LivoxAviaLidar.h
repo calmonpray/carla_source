@@ -93,4 +93,7 @@ private:
   bool DropOffGenActive = false;
   float DropOffAlpha = 0.0f;
   float DropOffBeta = 1.0f;
+
+  UPROPERTY()
+  URandomEngine *RandomEngine = nullptr;
 };

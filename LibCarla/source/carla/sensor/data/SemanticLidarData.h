@@ -138,14 +138,14 @@ namespace data {
   protected:
     std::vector<uint32_t> _header;
     uint32_t _max_channel_points;
+    std::vector<SemanticLidarDetection> _ser_points;
 
   private:
-    std::vector<SemanticLidarDetection> _ser_points;
 
   friend class s11n::SemanticLidarHeaderView;
   friend class s11n::SemanticLidarSerializer;
   friend class carla::ros2::ROS2;
-
+  friend class data::LivoxLidarData;
   };
 
 } // namespace s11n

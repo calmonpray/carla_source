@@ -23,7 +23,7 @@ namespace s11n {
 
   class LivoxLidarHeaderView
   {
-    using Index = data::LivoxLidarData::Index;
+    using Index = data::SemanticLidarData::Index;
 
   public:
 
@@ -68,7 +68,7 @@ namespace s11n {
     static size_t GetHeaderOffset(const RawData &data)
     {
       auto View = DeserializeHeader(data);
-      return sizeof(uint32_t) * (View.GetChannelCount() + data::LivoxLidarData::Index::SIZE);
+      return sizeof(uint32_t) * (View.GetChannelCount() + data::SemanticLidarData::Index::SIZE);
     }
 
     template <typename Sensor>

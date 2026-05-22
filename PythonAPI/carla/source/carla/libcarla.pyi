@@ -3134,6 +3134,73 @@ class SemanticLidarMeasurement(SensorData):
     def __str__(self) -> str: ...
     # endregion
 
+class LivoxLidarDetection:
+    """Data contained inside a `carla.LivoxLidarMeasurement`. Each point contains location, intensity, tag, line index, and timestamp."""
+
+    # region Instance Variables
+    @property
+    def x(self) -> float: ...
+    @property
+    def y(self) -> float: ...
+    @property
+    def z(self) -> float: ...
+    @property
+    def intensity(self) -> float: ...
+    @property
+    def tag(self) -> int: ...
+    @property
+    def line(self) -> int: ...
+    @property
+    def timestamp(self) -> float: ...
+    # endregion
+
+    # region Dunder Methods
+    def __str__(self) -> str: ...
+    # endregion
+
+class LivoxLidarMeasurement(SensorData):
+    """Class that defines the Livox Avia LiDAR data retrieved by a `sensor.lidar.livox_avia`."""
+
+    # region Instance Variables
+    @property
+    def channels(self) -> int:
+        """Number of channels."""
+
+    @property
+    def horizontal_angle(self) -> float:
+        """Horizontal angle the LiDAR is rotated at the time of the measurement (radians)."""
+
+    @property
+    def raw_data(self) -> bytes:
+        """Received list of Livox point data."""
+    # endregion
+
+    # region Methods
+    def save_to_disk(self, path: str):
+        """Saves the point cloud to disk as a `.ply` file.
+
+        Args:
+            path (str)
+        """
+    # endregion
+
+    # region Getters
+    def get_point_count(self, channel: int):
+        """Retrieves the number of points for a given channel.
+
+        Args:
+            channel (int)
+        """
+    # endregion
+
+    # region Dunder Methods
+    def __getitem__(self, pos: int) -> LivoxLidarDetection: ...
+    def __iter__(self) -> Iterator[LivoxLidarDetection]: ...
+    def __len__(self) -> int: ...
+    def __setitem__(self, pos: int, detection: LivoxLidarDetection) -> None: ...
+    def __str__(self) -> str: ...
+    # endregion
+
 class Sensor(Actor):
     """Sensors compound a specific family of actors quite diverse and unique. They are normally spawned as attachment/sons of a vehicle (take a look at `carla.World` to learn about actor spawning). Sensors are thoroughly designed to retrieve different types of data that they are listening to. The data they receive is shaped as different subclasses inherited from `carla.SensorData` (depending on the sensor).
 

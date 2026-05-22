@@ -17,6 +17,7 @@
 #include <carla/sensor/data/LaneInvasionEvent.h>
 #include <carla/sensor/data/LidarMeasurement.h>
 #include <carla/sensor/data/SemanticLidarMeasurement.h>
+#include <carla/sensor/data/LivoxLidarMeasurement.h>
 #include <carla/sensor/data/GnssMeasurement.h>
 #include <carla/sensor/data/RadarMeasurement.h>
 #include <carla/sensor/data/DVSEventArray.h>
@@ -65,6 +66,14 @@ namespace data {
 
   std::ostream &operator<<(std::ostream &out, const SemanticLidarMeasurement &meas) {
     out << "SemanticLidarMeasurement(frame=" << std::to_string(meas.GetFrame())
+        << ", timestamp=" << std::to_string(meas.GetTimestamp())
+        << ", number_of_points=" << std::to_string(meas.size())
+        << ')';
+    return out;
+  }
+
+  std::ostream &operator<<(std::ostream &out, const LivoxLidarMeasurement &meas) {
+    out << "LivoxLidarMeasurement(frame=" << std::to_string(meas.GetFrame())
         << ", timestamp=" << std::to_string(meas.GetTimestamp())
         << ", number_of_points=" << std::to_string(meas.size())
         << ')';
@@ -475,6 +484,34 @@ void export_sensor_data() {
     .def("__setitem__", +[](csd::SemanticLidarMeasurement &self, size_t pos, const csd::SemanticLidarDetection &detection) {
       self.at(pos) = detection;
     })
+    .def(self_ns::str(self_ns::self))
+  ;
+
+  class_<csd::LivoxLidarMeasurement, bases<cs::SensorData>, boost::noncopyable, boost::shared_ptr<csd::LivoxLidarMeasurement>>("LivoxLidarMeasurement", no_init)
+    .add_property("horizontal_angle", &csd::LivoxLidarMeasurement::GetHorizontalAngle)
+    .add_property("channels", &csd::LivoxLidarMeasurement::GetChannelCount)
+    .add_property("raw_data", &GetRawDataAsBuffer<csd::LivoxLidarMeasurement>)
+    .def("get_point_count", &csd::LivoxLidarMeasurement::GetPointCount, (arg("channel")))
+    .def("save_to_disk", &SavePointCloudToDisk<csd::LivoxLidarMeasurement>, (arg("path")))
+    .def("__len__", &csd::LivoxLidarMeasurement::size)
+    .def("__iter__", iterator<csd::LivoxLidarMeasurement>())
+    .def("__getitem__", +[](const csd::LivoxLidarMeasurement &self, size_t pos) -> csd::LivoxLidarDetection {
+      return self.at(pos);
+    })
+    .def("__setitem__", +[](csd::LivoxLidarMeasurement &self, size_t pos, const csd::LivoxLidarDetection &detection) {
+      self.at(pos) = detection;
+    })
+    .def(self_ns::str(self_ns::self))
+  ;
+
+  class_<csd::LivoxLidarDetection>("LivoxLidarDetection")
+    .def_readwrite("x", &csd::LivoxLidarDetection::x)
+    .def_readwrite("y", &csd::LivoxLidarDetection::y)
+    .def_readwrite("z", &csd::LivoxLidarDetection::z)
+    .def_readwrite("intensity", &csd::LivoxLidarDetection::intensity)
+    .def_readwrite("tag", &csd::LivoxLidarDetection::tag)
+    .def_readwrite("line", &csd::LivoxLidarDetection::line)
+    .def_readwrite("timestamp", &csd::LivoxLidarDetection::timestamp)
     .def(self_ns::str(self_ns::self))
   ;
 
