@@ -23,6 +23,7 @@
 #include "carla/sensor/s11n/OpticalFlowImageSerializer.h"
 #include "carla/sensor/s11n/IMUSerializer.h"
 #include "carla/sensor/s11n/LidarSerializer.h"
+#include "carla/sensor/s11n/LivoxLidarSerializer.h"
 #include "carla/sensor/s11n/NoopSerializer.h"
 #include "carla/sensor/s11n/ObstacleDetectionEventSerializer.h"
 #include "carla/sensor/s11n/RadarSerializer.h"
@@ -60,6 +61,7 @@ struct FCameraGBufferFloat;
 class AV2XSensor;
 class ACustomV2XSensor;
 class AHSSLidar;
+class ALivoxAviaLidar;
 
 namespace carla {
 namespace sensor {
@@ -84,6 +86,7 @@ namespace sensor {
     std::pair<ARadar *, s11n::RadarSerializer>,
     std::pair<ARayCastSemanticLidar *, s11n::SemanticLidarSerializer>,
     std::pair<ARayCastLidar *, s11n::LidarSerializer>,
+    std::pair<ALivoxAviaLidar *, s11n::LivoxLidarSerializer>,
     std::pair<ARssSensor *, s11n::NoopSerializer>,
     std::pair<ASceneCaptureCamera *, s11n::ImageSerializer>,
     std::pair<ASemanticSegmentationCamera *, s11n::ImageSerializer>,
@@ -137,6 +140,7 @@ namespace sensor {
 #include "Carla/Sensor/InstanceSegmentationCamera_WideAngleLens.h"
 #include "Carla/Sensor/V2XSensor.h"
 #include "Carla/Sensor/CustomV2XSensor.h"
+#include "Carla/Sensor/LivoxAviaLidar.h"
 #include "Carla/Sensor/HSSLidar.h"
 
 #endif // LIBCARLA_SENSOR_REGISTRY_WITH_SENSOR_INCLUDES

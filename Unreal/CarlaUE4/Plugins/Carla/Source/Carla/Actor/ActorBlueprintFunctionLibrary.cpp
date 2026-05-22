@@ -1093,6 +1093,77 @@ void UActorBlueprintFunctionLibrary::MakeLidarDefinition(
       HorizontalFOV,
       HorizontalResolution});
   }
+  else if (Id == "livox_avia") {
+    Channels.RecommendedValues = { TEXT("1") };
+    Range.RecommendedValues = { TEXT("450.0") };
+    PointsPerSecond.RecommendedValues = { TEXT("240000") };
+    Frequency.RecommendedValues = { TEXT("10.0") };
+    UpperFOV.RecommendedValues = { TEXT("38.4") };
+    LowerFOV.RecommendedValues = { TEXT("-38.4") };
+    HorizontalFOV.RecommendedValues = { TEXT("70.4") };
+    AtmospAttenRate.RecommendedValues = { TEXT("0.004") };
+    DropOffGenRate.RecommendedValues = { TEXT("0.0") };
+    DropOffIntensityLimit.RecommendedValues = { TEXT("0.0") };
+    DropOffAtZeroIntensity.RecommendedValues = { TEXT("0.0") };
+    StdDevLidar.RecommendedValues = { TEXT("0.0") };
+
+    FActorVariation CsvPath;
+    CsvPath.Id = TEXT("csv_path");
+    CsvPath.Type = EActorAttributeType::String;
+    CsvPath.RecommendedValues = { TEXT("") };
+    CsvPath.bRestrictToRecommended = false;
+
+    FActorVariation PatternDuration;
+    PatternDuration.Id = TEXT("pattern_duration");
+    PatternDuration.Type = EActorAttributeType::Float;
+    PatternDuration.RecommendedValues = { TEXT("4.0") };
+    PatternDuration.bRestrictToRecommended = false;
+
+    FActorVariation LoopPattern;
+    LoopPattern.Id = TEXT("loop_pattern");
+    LoopPattern.Type = EActorAttributeType::Bool;
+    LoopPattern.RecommendedValues = { TEXT("true") };
+    LoopPattern.bRestrictToRecommended = false;
+
+    FActorVariation RelativeTimestamp;
+    RelativeTimestamp.Id = TEXT("relative_timestamp");
+    RelativeTimestamp.Type = EActorAttributeType::Bool;
+    RelativeTimestamp.RecommendedValues = { TEXT("false") };
+    RelativeTimestamp.bRestrictToRecommended = false;
+
+    FActorVariation DefaultIntensity;
+    DefaultIntensity.Id = TEXT("default_intensity");
+    DefaultIntensity.Type = EActorAttributeType::Float;
+    DefaultIntensity.RecommendedValues = { TEXT("100.0") };
+    DefaultIntensity.bRestrictToRecommended = false;
+
+    FActorVariation MaxPointsPerTick;
+    MaxPointsPerTick.Id = TEXT("max_points_per_tick");
+    MaxPointsPerTick.Type = EActorAttributeType::Int;
+    MaxPointsPerTick.RecommendedValues = { TEXT("20000") };
+    MaxPointsPerTick.bRestrictToRecommended = false;
+
+    Definition.Variations.Append({
+      Channels,
+      Range,
+      PointsPerSecond,
+      Frequency,
+      UpperFOV,
+      LowerFOV,
+      AtmospAttenRate,
+      NoiseSeed,
+      DropOffGenRate,
+      DropOffIntensityLimit,
+      DropOffAtZeroIntensity,
+      StdDevLidar,
+      HorizontalFOV,
+      CsvPath,
+      PatternDuration,
+      LoopPattern,
+      RelativeTimestamp,
+      DefaultIntensity,
+      MaxPointsPerTick});
+  }
   else if (Id == "ray_cast_semantic") {
     Definition.Variations.Append({
       Channels,

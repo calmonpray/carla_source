@@ -28,6 +28,7 @@ namespace carla {
     namespace data {
       struct DVSEvent;
       class LidarData;
+      class LivoxLidarData;
       class SemanticLidarData;
       class RadarData;
     }
@@ -108,6 +109,11 @@ class ROS2
       uint64_t sensor_type,
       const carla::geom::Transform sensor_transform,
       carla::sensor::data::LidarData &data,
+      void *actor = nullptr);
+    void ProcessDataFromLivoxLidar(
+      uint64_t sensor_type,
+      const carla::geom::Transform sensor_transform,
+      carla::sensor::data::LivoxLidarData &data,
       void *actor = nullptr);
     void ProcessDataFromSemanticLidar(
       uint64_t sensor_type,
